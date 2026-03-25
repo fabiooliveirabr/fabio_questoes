@@ -1,0 +1,92 @@
+[
+  {
+    "dadosDoSimulado": {
+      "Banca": "CEBRASPE",
+      "Cargo": "Técnico Universitário de Desenvolvimento",
+      "Área": "Técnico em Educação",
+      "Concurso": "UDESC - Universidade do Estado de Santa Catarina",
+      "Disciplina": "Noções de Informática",
+      "Assuntos": "Unidades de medida da informação (bit, byte, KB, MB, GB)",
+      "Dificuldade": "Média",
+      "Tipo": "Certo/Errado",
+      "Quantidade": 9,
+      "Nível": "Ensino superior"
+    }
+  },
+  {
+    "questoes": [
+      {
+        "textoQuestao": "Em um armazenamento de 4 gigabytes, a quantidade de células de memória endereçáveis individualmente, considerando que cada célula corresponde a um byte, é de 4 × 2<sup>30</sup>, o que equivale a 4.294.967.296 células.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "1",
+        "msgAlt1": "Você acertou. O prefixo \"giga\" no contexto da computação, quando associado a bytes, representa 2<sup>30</sup> (1.073.741.824) unidades. Portanto, 4 gigabytes (GB) correspondem a 4 × 2<sup>30</sup> bytes, resultando exatamente em 4.294.967.296 células de memória, considerando o endereçamento por byte.",
+        "msgAlt2": "Resposta incorreta. O cálculo apresentado está correto. A confusão comum seria utilizar a base decimal (10<sup>9</sup>) para o prefixo \"giga\", resultando em 4.000.000.000, mas o padrão adotado para medidas de armazenamento, especialmente em contexto de endereçamento de memória, utiliza a base binária (2<sup>30</sup>), o que torna a afirmação verdadeira."
+      },
+      {
+        "textoQuestao": "Ao adquirir um disco rígido de 500 GB (gigabytes), o sistema operacional, ao formatá-lo, reportará uma capacidade total de aproximadamente 500.000.000.000 bytes, o que, quando convertido para gigabytes binários (GiB), resulta em um valor numericamente inferior ao informado pelo fabricante, em razão da diferença entre as bases decimal e binária utilizadas nas medições.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "1",
+        "msgAlt1": "Você acertou. Fabricantes de discos rígidos utilizam o prefixo \"giga\" no Sistema Internacional de Unidades (SI), onde 1 GB = 10<sup>9</sup> bytes. O sistema operacional, por sua vez, frequentemente apresenta a capacidade utilizando o prefixo binário, onde 1 GiB = 2<sup>30</sup> bytes. Assim, 500 GB equivalem a 500 × 10<sup>9</sup> bytes, que divididos por 2<sup>30</sup> (1.073.741.824) resultam em aproximadamente 465 GiB, um valor numericamente menor.",
+        "msgAlt2": "Resposta incorreta. A afirmação está correta. A diferença entre a unidade decimal (GB) utilizada pelos fabricantes e a unidade binária (GiB) ou a interpretação binária pelo sistema operacional é uma causa conhecida para a aparente redução da capacidade reportada após a formatação, não configurando um erro ou defeito no produto."
+      },
+      {
+        "textoQuestao": "Considere um arquivo de texto simples de 5.000 caracteres, onde cada caractere é codificado utilizando o padrão ASCII-8, que utiliza 8 bits por caractere. A transmissão desse arquivo por uma conexão de rede com taxa de 1 megabit por segundo (Mbps) levaria aproximadamente 0,04 segundo, uma vez que 1 megabit equivale a 1.000.000 de bits.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "1",
+        "msgAlt1": "Você acertou. O arquivo possui 5.000 caracteres, cada um com 8 bits, totalizando 40.000 bits. A taxa de transmissão é de 1 Mbps, que no contexto de telecomunicações utiliza o prefixo decimal (10<sup>6</sup>), resultando em 1.000.000 bits por segundo. O tempo de transmissão é calculado por 40.000 bits / 1.000.000 bits/s, que equivale a 0,04 segundo.",
+        "msgAlt2": "Resposta incorreta. O cálculo está correto. É importante notar que, em redes e telecomunicações, as taxas de transmissão (bps, Mbps, Gbps) utilizam o sistema decimal (k = 10<sup>3</sup>, M = 10<sup>6</sup>, G = 10<sup>9</sup>), o que foi corretamente aplicado no cálculo do tempo de transmissão."
+      },
+      {
+        "textoQuestao": "Se um pendrive tem sua capacidade nominal informada como 32 GB, e um sistema operacional utiliza a base binária para representar essa capacidade, o espaço total disponível será exibido como 32 × 10<sup>9</sup> bytes, que, convertido para o sistema binário, equivale a 32 GiB, resultando na exibição do mesmo valor numérico, apenas com a unidade alterada.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "2",
+        "msgAlt1": "Resposta incorreta. A afirmação contém dois erros. Primeiro, a capacidade nominal em 32 GB pelo fabricante é 32 × 10<sup>9</sup> bytes, e não 32 GiB. Segundo, ao converter esses bytes para o sistema binário, o valor em GiB será menor (aproximadamente 29,8 GiB), e não o mesmo valor numérico. A exibição no sistema operacional, se feita em GB (interpretando como binário), apresentará um número inferior ao do fabricante.",
+        "msgAlt2": "Você acertou. Há uma diferença fundamental entre as escalas. 32 GB (decimal) corresponde a 32.000.000.000 bytes. Um sistema que utiliza a escala binária (GiB) reportaria aproximadamente 29,8 GiB. Mesmo que o sistema operacional mantenha a nomenclatura \"GB\", ele estará aplicando internamente a conversão binária (dividindo por 2<sup>30</sup>), o que resulta em um valor numérico menor (cerca de 29,8), e não o mesmo 32."
+      },
+      {
+        "textoQuestao": "Uma placa de rede opera a uma velocidade nominal de 1000 Mbps (megabits por segundo). Em um segundo, a quantidade máxima de dados que essa interface pode transmitir, expressa em megabytes (MB) utilizando o sistema decimal, é de 125 MB, considerando que 8 bits formam 1 byte e que 1000 Mbps equivalem a 1000 × 10<sup>6</sup> bits por segundo.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "1",
+        "msgAlt1": "Você acertou. 1000 Mbps é igual a 1.000.000.000 bits por segundo (já que M = 10<sup>6</sup>). Dividindo esse valor por 8 bits/byte, obtemos 125.000.000 bytes por segundo. Como 1 MB (megabyte) decimal equivale a 10<sup>6</sup> bytes, o resultado é exatamente 125 MB por segundo. O cálculo é preciso e segue o padrão decimal adotado para taxas de transmissão.",
+        "msgAlt2": "Resposta incorreta. O cálculo apresentado está matematicamente correto. A conversão de 1000 Mbps para MBps (megabytes por segundo) é uma operação comum e resulta em 125 MB/s, pois 1000 / 8 = 125, utilizando a mesma base decimal (10<sup>6</sup>) para ambos os prefixos \"M\"."
+      },
+      {
+        "textoQuestao": "Em um sistema de armazenamento, um arquivo de 2 MB (megabytes) ocupa exatamente 2.000.000 de bytes no disco rígido, pois o sistema de arquivos utiliza o prefixo \"mega\" em sua forma decimal (base 10), adotando a definição do Sistema Internacional de Unidades (SI).",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "2",
+        "msgAlt1": "Resposta incorreta. Embora os fabricantes de discos utilizem o sistema decimal, a maioria dos sistemas operacionais e sistemas de arquivos gerencia o espaço em disco utilizando a base binária. Um arquivo de 2 MB reportado pelo sistema operacional geralmente significa 2 × 2<sup>20</sup> bytes (2.097.152 bytes), e não 2.000.000. A afirmação é falsa ao assumir que o sistema de arquivos adota universalmente a definição decimal.",
+        "msgAlt2": "Você acertou. A afirmação é incorreta porque a interpretação do prefixo \"mega\" em sistemas de arquivos e sistemas operacionais, quando reportando o tamanho de arquivos, tradicionalmente utiliza o valor binário de 2<sup>20</sup> (1.048.576) para 1 MB, e não o decimal de 10<sup>6</sup>. Assim, 2 MB correspondem a 2.097.152 bytes, e não a 2.000.000."
+      },
+      {
+        "textoQuestao": "Um técnico precisa transferir um conjunto de arquivos que totalizam 4.096 KB (kilobytes) por uma rede. Considerando que a taxa de transferência efetiva é de 512 KB/s (kilobytes por segundo) e que, nesse contexto, o prefixo \"K\" representa 1.024 unidades (base binária), o tempo total necessário para a conclusão da transferência será de 8 segundos.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "1",
+        "msgAlt1": "Você acertou. Na computação, quando se trata de armazenamento e tamanhos de arquivo, é comum que KB represente 1.024 bytes (2<sup>10</sup>). Assim, 4.096 KB equivalem a 4.096 × 1.024 = 4.194.304 bytes. A taxa de 512 KB/s também utiliza a mesma base, resultando em 512 × 1.024 = 524.288 bytes/s. O tempo é calculado por 4.194.304 / 524.288 = 8 segundos.",
+        "msgAlt2": "Resposta incorreta. O cálculo está correto e considera a coerência no uso da base binária (kibi) para ambas as medidas de tamanho e taxa, resultando em uma divisão simples de 4.096 por 512, que é igual a 8. A ambiguidade entre base decimal e binária é um ponto comum de confusão, mas neste caso a premissa do uso da base binária foi explicitada."
+      },
+      {
+        "textoQuestao": "A capacidade de uma memória RAM do tipo SDRAM, anunciada como 8 GB, corresponde a 8 × 10<sup>9</sup> bytes, pois o padrão da indústria de semicondutores para esse tipo de componente adota o sistema decimal para a definição do prefixo \"giga\", alinhado à especificação JEDEC que utiliza a base binária.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "2",
+        "msgAlt1": "Resposta incorreta. Diferentemente dos discos rígidos, a indústria de memória RAM (semicondutores) adota o sistema binário para definir o prefixo \"giga\". Assim, 8 GB de RAM equivalem a 8 × 2<sup>30</sup> bytes (8.589.934.592 bytes), e não a 8 × 10<sup>9</sup> bytes. A especificação JEDEC (Joint Electron Device Engineering Council) é justamente a que padroniza o uso da base binária para esses componentes.",
+        "msgAlt2": "Você acertou. A afirmação é falsa porque inverte os padrões. Enquanto fabricantes de armazenamento magnético e óptico (HDs, pendrives) utilizam o sistema decimal para capacidade nominal, a indústria de memória RAM (DRAM) segue o padrão JEDEC, que utiliza a base binária (2<sup>30</sup> para GB), sendo uma exceção importante no mercado."
+      },
+      {
+        "textoQuestao": "Para representar o valor decimal 255 em um sistema computacional, são necessários exatamente 8 bits, o que corresponde a 1 byte. O mesmo número, quando representado em um sistema de 16 bits, ocupará 2 bytes, o que equivale a 2 × 2<sup>10</sup> bits, ou seja, 2.048 bits.",
+        "textoAlternativa1": "Certo",
+        "textoAlternativa2": "Errado",
+        "alternativaCorreta": "2",
+        "msgAlt1": "Resposta incorreta. O erro está na conversão final. 2 bytes correspondem a 16 bits (2 × 8). A afirmação tenta converter 2 bytes utilizando a relação de 1 kilobyte (2<sup>10</sup> bytes), o que é conceitualmente incorreto. 2 bytes são 16 bits, não 2.048 bits. A relação 1 KB = 1.024 bytes é uma unidade de medida de quantidade de informação, não uma conversão direta de bytes para bits.",
+        "msgAlt2": "Você acertou. A afirmação é falsa porque comete um equívoco na conversão de unidades. Embora a primeira parte esteja correta (255 em 8 bits, 1 byte), a segunda parte está incorreta. Um sistema de 16 bits utiliza 2 bytes, mas isso corresponde a 16 bits, e não a 2.048 bits. 2.048 bits equivaleriam a 256 bytes (2.048 / 8), o que não é o caso."
+      }
+    ]
+  }
+]

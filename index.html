@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitor de Simulados - Questões de Concurso</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="header">
+  <div class="header-content">
+    <div>
+      <h1>📚 Leitor de Simulados</h1>
+      <p>Selecione uma pasta com arquivos JSON e resolva as questões de concurso</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" id="generatePromptBtn">
+        🤖 Gerar Prompt
+      </button>
+      <button class="btn btn-secondary" id="clearAllBtn" title="Limpar todos os simulados">
+        🗑️ Limpar Tudo
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="upload-area">
+  <label class="upload-label" for="input">
+    📂 Selecionar Pasta com JSON
+  </label>
+  <input type="file" id="input" webkitdirectory multiple>
+  <div class="upload-info">Selecione uma pasta contendo arquivos .json no formato do simulado</div>
+</div>
+
+<div class="stats-bar" id="statsBar" style="display: none;">
+  <div class="stat-item">
+    <span class="stat-label">📊 Simulados:</span>
+    <span class="stat-value" id="statTotal">0</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-label">💾 Armazenamento:</span>
+    <span class="stat-value" id="statStorage">0 KB</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-label">🔄 Última sincronização:</span>
+    <span class="stat-value" id="statLastSync">-</span>
+  </div>
+</div>
+
+<div id="container" class="cards-container">
+  <div class="empty-state">
+    🗂️ Nenhum simulado carregado. Selecione uma pasta para começar.
+  </div>
+</div>
+
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
