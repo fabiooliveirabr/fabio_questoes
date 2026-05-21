@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📓 Caderno de Erros</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Caderno de Erros specific styles */
+        .ce-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .ce-header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .back-link:hover {
+            background: #5a6268;
+        }
+
+        .ce-simulados-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .ce-simulado-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            border-left: 4px solid #0d6efd;
+        }
+
+        .ce-simulado-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ce-simulado-card h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.1rem;
+            color: #1a1a2e;
+        }
+
+        .ce-simulado-card .ce-simulado-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .ce-simulado-card .ce-simulado-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Questões list inside a simulado */
+        .ce-questoes-container {
+            display: none;
+            margin-top: 16px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 12px;
+        }
+
+        .ce-questoes-container.open {
+            display: block;
+        }
+
+        .ce-questao-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s;
+            gap: 12px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .ce-questao-item:hover {
+            background: #f0f4ff;
+        }
+
+        .ce-questao-item .ce-questao-num {
+            font-weight: 700;
+            color: #0d6efd;
+            min-width: 36px;
+            font-size: 0.95rem;
+        }
+
+        .ce-questao-item .ce-questao-texto {
+            flex: 1;
+            font-size: 0.9rem;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 500px;
+        }
+
+        .ce-questao-item .ce-questao-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .ce-questao-item .ce-questao-stats .stat-badge {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .ce-questao-item .ce-questao-stats .stat-badge.respondida {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .ce-questao-item .ce-questao-stats .stat-badge.acertos {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .ce-questao-item .ce-questao-stats .stat-badge.erros {
+            background: #fbe9e7;
+            color: #c62828;
+        }
+
+        /* Color coding for acertos <= erros (red) or acertos > erros (green) */
+        .ce-questao-item.bg-red {
+            background: #ffeaea;
+            border-color: #f5c6cb;
+        }
+
+        .ce-questao-item.bg-red:hover {
+            background: #ffd5d5;
+        }
+
+        .ce-questao-item.bg-green {
+            background: #eaffea;
+            border-color: #c3e6cb;
+        }
+
+        .ce-questao-item.bg-green:hover {
+            background: #d5ffd5;
+        }
+
+        .ce-empty {
+            text-align: center;
+            color: #888;
+            padding: 40px 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Loading */
+        .ce-loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Scroll to top button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .scroll-top-btn:hover {
+            background: #0b5ed7;
+        }
+
+        .scroll-top-btn.show {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content ce-header">
+            <h1>📓 Caderno de Erros</h1>
+            <a href="index.html" class="back-link">← Voltar aos Simulados</a>
+        </div>
+    </div>
+
+    <div id="ceContent" class="cards-container">
+        <div class="ce-loading">Carregando caderno de erros...</div>
+    </div>
+
+    <button class="scroll-top-btn" id="scrollTopBtn" title="Voltar ao topo">↑</button>
+
+    <script src="js/database.js"></script>
+    <script src="js/caderno-erros.js"></script>
+</body>
+
+</html>

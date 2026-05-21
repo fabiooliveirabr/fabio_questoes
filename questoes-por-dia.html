@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Questões Respondidas por Dia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Specific styles for the questions-per-day page */
+        .qpd-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .qpd-header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .qpd-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .qpd-nav a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .qpd-nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Chart container */
+        .qpd-chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            min-height: 400px;
+            position: relative;
+        }
+
+        .qpd-chart-container h2 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* Chart area */
+        .qpd-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            min-height: 300px;
+            padding-top: 20px;
+            padding-bottom: 40px;
+            overflow-x: auto;
+            position: relative;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        /* Individual bar */
+        .qpd-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 30px;
+            position: relative;
+        }
+
+        .qpd-bar {
+            width: 100%;
+            max-width: 50px;
+            border-radius: 6px 6px 0 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            min-height: 2px;
+            background: linear-gradient(180deg, #2a5298 0%, #1e3c72 100%);
+        }
+
+        .qpd-bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.02);
+            transform-origin: bottom;
+        }
+
+        .qpd-bar-label {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 6px;
+            text-align: center;
+            white-space: nowrap;
+            transform: rotate(-45deg);
+            transform-origin: top left;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+        }
+
+        .qpd-bar-value {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        /* Tooltip on hover */
+        .qpd-bar-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e3c72;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        .qpd-bar-wrapper:hover .qpd-bar-tooltip {
+            display: block;
+        }
+
+        /* Stats summary cards */
+        .qpd-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 2rem;
+        }
+
+        .qpd-stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #2a5298;
+        }
+
+        .qpd-stat-card .qpd-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .qpd-stat-card .qpd-stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        .qpd-stat-card.qpd-stat-total {
+            border-left-color: #2a5298;
+        }
+
+        .qpd-stat-card.qpd-stat-avg {
+            border-left-color: #28a745;
+        }
+
+        .qpd-stat-card.qpd-stat-best {
+            border-left-color: #ffc107;
+        }
+
+        .qpd-stat-card.qpd-stat-streak {
+            border-left-color: #dc3545;
+        }
+
+        /* Summary table */
+        .qpd-table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .qpd-table-container h2 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .qpd-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .qpd-table th {
+            background: #f1f3f5;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .qpd-table td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 0.9rem;
+            color: #212529;
+        }
+
+        .qpd-table tr:hover td {
+            background: #f8f9ff;
+        }
+
+        .qpd-table .qpd-total-questions {
+            font-weight: 700;
+        }
+
+        /* Filters */
+        .qpd-filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            background: white;
+            margin: 0 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .qpd-filters label {
+            font-size: 0.85rem;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .qpd-filters select,
+        .qpd-filters input {
+            padding: 0.5rem;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .qpd-filters select:focus,
+        .qpd-filters input:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .qpd-loading {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .qpd-empty {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 640px) {
+
+            .qpd-chart-container,
+            .qpd-table-container,
+            .qpd-filters,
+            .qpd-stats-grid {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .qpd-bar-label {
+                font-size: 0.55rem;
+            }
+
+            .qpd-bar-wrapper {
+                min-width: 20px;
+            }
+
+            .qpd-table {
+                font-size: 0.8rem;
+            }
+
+            .qpd-table th,
+            .qpd-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        .qpd-no-data {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content qpd-header">
+            <h1>📊 Questões Respondidas por Dia</h1>
+            <div class="qpd-nav">
+                <a href="index.html">🏠 Simulados</a>
+                <a href="caderno-de-erros.html">📓 Caderno de Erros</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="qpd-filters" id="qpdFilters">
+        <label for="qpdPeriodFilter">📅 Período:</label>
+        <select id="qpdPeriodFilter">
+            <option value="7">Últimos 7 dias</option>
+            <option value="14">Últimos 14 dias</option>
+            <option value="30" selected>Últimos 30 dias</option>
+            <option value="60">Últimos 60 dias</option>
+            <option value="90">Últimos 90 dias</option>
+            <option value="all">Todo período</option>
+        </select>
+
+        <label for="qpdSimuladoFilter">📚 Simulado:</label>
+        <select id="qpdSimuladoFilter">
+            <option value="all">Todos os simulados</option>
+        </select>
+
+        <button class="btn btn-primary" id="qpdRefreshBtn">🔄 Atualizar</button>
+    </div>
+
+    <!-- Stats Summary Cards -->
+    <div class="qpd-stats-grid" id="qpdStatsGrid">
+        <div class="qpd-stat-card qpd-stat-total">
+            <div class="qpd-stat-value" id="qpdTotalAnswered">-</div>
+            <div class="qpd-stat-label">Total de respostas</div>
+        </div>
+        <div class="qpd-stat-card qpd-stat-avg">
+            <div class="qpd-stat-value" id="qpdAvgPerDay">-</div>
+            <div class="qpd-stat-label">Média por dia</div>
+        </div>
+        <div class="qpd-stat-card qpd-stat-best">
+            <div class="qpd-stat-value" id="qpdBestDay">-</div>
+            <div class="qpd-stat-label">Melhor dia</div>
+        </div>
+        <div class="qpd-stat-card qpd-stat-streak">
+            <div class="qpd-stat-value" id="qpdStreak">-</div>
+            <div class="qpd-stat-label">Dias consecutivos</div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="qpd-chart-container">
+        <h2>📈 Questões respondidas por dia</h2>
+        <div class="qpd-loading" id="qpdLoading">⏳ Carregando dados...</div>
+        <div class="qpd-chart" id="qpdChart" style="display: none;"></div>
+        <div class="qpd-no-data" id="qpdNoData" style="display: none;">
+            📭 Nenhuma questão respondida no período selecionado.
+        </div>
+    </div>
+
+    <!-- Detailed table -->
+    <div class="qpd-table-container">
+        <h2>📋 Detalhamento diário</h2>
+        <div class="qpd-loading" id="qpdTableLoading">⏳ Carregando dados...</div>
+        <div id="qpdTableWrapper" style="display: none;">
+            <table class="qpd-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Dia da semana</th>
+                        <th>Questões respondidas</th>
+                        <th>Acertos</th>
+                        <th>Erros</th>
+                        <th>% Acertos</th>
+                    </tr>
+                </thead>
+                <tbody id="qpdTableBody"></tbody>
+            </table>
+        </div>
+        <div class="qpd-no-data" id="qpdTableNoData" style="display: none;">
+            📭 Nenhuma questão respondida no período selecionado.
+        </div>
+    </div>
+
+    <script src="js/database.js"></script>
+    <script src="js/questoes-por-dia.js"></script>
+</body>
+
+</html>
