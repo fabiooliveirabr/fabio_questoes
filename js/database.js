@@ -316,6 +316,105 @@ class SimuladosDB {
       request.onerror = () => reject(request.error);
     });
   }
+
+  // ===== BACKUP / RESTORE METHODS =====
+
+  // Export complete backup of all stores
+  async exportBackup() {
+    await this.ensureConnection();
+
+    // Get all data from each store
+    const simulados = await this.loadAll();
+    const questoesStats = await this.getAllQuestoesStats();
+
+    // Get config data
+    const config = await new Promise((resolve) => {
+      const transaction = this.db.transaction([this.configStoreName], 'readonly');
+      const store = transaction.objectStore(this.configStoreName);
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result || []);
+      request.onerror = () => resolve([]);
+    });
+
+    return {
+      version: this.dbVersion,
+      exportedAt: new Date().toISOString(),
+      stores: {
+        simulados: simulados,
+        config: config,
+        questoesStats: questoesStats
+      }
+    };
+  }
+
+  // Import/restore a complete backup
+  async importBackup(backupObj, options = {}) {
+    await this.ensureConnection();
+
+    const { clearBefore = false } = options;
+
+    if (!backupObj || !backupObj.stores) {
+      throw new Error('Formato de backup inválido. O objeto deve conter a propriedade "stores".');
+    }
+
+    // Optionally clear existing data before restoring
+    if (clearBefore) {
+      await this.clearAll();
+      await this.clearAllQuestoesStats();
+      await new Promise((resolve, reject) => {
+        const transaction = this.db.transaction([this.configStoreName], 'readwrite');
+        const store = transaction.objectStore(this.configStoreName);
+        const request = store.clear();
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    // Import 'simulados' store
+    const simulados = backupObj.stores.simulados || [];
+    for (const simulado of simulados) {
+      await new Promise((resolve, reject) => {
+        const transaction = this.db.transaction([this.storeName], 'readwrite');
+        const store = transaction.objectStore(this.storeName);
+        const request = store.put(simulado);
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    // Import 'config' store
+    const configs = backupObj.stores.config || [];
+    for (const config of configs) {
+      await new Promise((resolve, reject) => {
+        const transaction = this.db.transaction([this.configStoreName], 'readwrite');
+        const store = transaction.objectStore(this.configStoreName);
+        const request = store.put(config);
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    // Import 'questoesStats' store
+    const stats = backupObj.stores.questoesStats || [];
+    for (const stat of stats) {
+      await new Promise((resolve, reject) => {
+        const transaction = this.db.transaction([this.questoesStatsStoreName], 'readwrite');
+        const store = transaction.objectStore(this.questoesStatsStoreName);
+        const request = store.put(stat);
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    return {
+      success: true,
+      imported: {
+        simulados: simulados.length,
+        configs: configs.length,
+        stats: stats.length
+      }
+    };
+  }
 }
 
 // Instância global

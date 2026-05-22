@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backup / Restauração</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .backup-page {
+      max-width: 720px;
+      margin: 32px auto;
+      padding: 24px;
+    }
+
+    .backup-page h1 {
+      margin-bottom: 24px;
+    }
+
+    .backup-card {
+      background: var(--card-bg, #f9f9f9);
+      border: 1px solid var(--border-color, #ddd);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .backup-card h2 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.2em;
+    }
+
+    .backup-card p {
+      margin: 8px 0;
+    }
+
+    .btn-backup {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 1em;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-export {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .btn-export:hover {
+      background: #218838;
+    }
+
+    .btn-import {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .btn-import:hover {
+      background: #0069d9;
+    }
+
+    .info-msg {
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.95em;
+    }
+
+    .info-msg.success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .info-msg.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .info-msg.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .file-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .backup-footer {
+      margin-top: 32px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .backup-footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .backup-footer a:hover {
+      text-decoration: underline;
+    }
+
+    #restoreConfirm {
+      display: none;
+      margin-top: 12px;
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    #restoreConfirm p {
+      margin: 0 0 12px 0;
+      font-weight: 500;
+    }
+
+    #restoreConfirm .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    #restoreConfirm .btn-confirm {
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #restoreConfirm .btn-cancel {
+      background: #6c757d;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="backup-page">
+    <h1>💾 Backup e Restauração</h1>
+
+    <div class="backup-card">
+      <h2>📤 Exportar Backup</h2>
+      <p>Gera um arquivo JSON contendo todos os dados do banco local (simulados, estatísticas e configurações).</p>
+      <button class="btn-backup btn-export" id="exportBtn">⬇️ Exportar Backup Completo</button>
+      <div id="exportInfo" class="info-msg"></div>
+    </div>
+
+    <div class="backup-card">
+      <h2>📥 Restaurar Backup</h2>
+      <p>Selecione um arquivo de backup (.json) gerado anteriormente para restaurar todos os dados.</p>
+      <p style="color:#856404;font-size:0.9em;">
+        ⚠️ <strong>Atenção:</strong> A restauração substituirá todos os dados atuais do banco.
+      </p>
+      <div class="file-input-wrapper">
+        <input type="file" id="importFile" accept=".json,application/json">
+        <button class="btn-backup btn-import" id="restoreBtn" disabled>🔄 Restaurar</button>
+      </div>
+
+      <div id="restoreConfirm">
+        <p>⚠️ Tem certeza que deseja restaurar este backup? Todos os dados atuais serão <strong>substituídos</strong>.
+        </p>
+        <div class="btn-group">
+          <button class="btn-confirm" id="confirmRestoreBtn">Sim, restaurar</button>
+          <button class="btn-cancel" id="cancelRestoreBtn">Cancelar</button>
+        </div>
+      </div>
+
+      <div id="importInfo" class="info-msg"></div>
+    </div>
+
+    <div class="backup-footer">
+      <p>O arquivo gerado contém todas as stores do banco local IndexedDB.</p>
+      <p>Formato do nome: <strong>backup_AAAA-MM-DD_HH-MM-SS.json</strong></p>
+      <p><a href="index.html">← Voltar para página inicial</a></p>
+    </div>
+  </div>
+
+  <script src="js/database.js"></script>
+  <script src="js/backup.js"></script>
+</body>
+
+</html>

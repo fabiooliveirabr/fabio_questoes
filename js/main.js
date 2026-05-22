@@ -282,8 +282,7 @@ o conteúdo).
 3. Ocasionalmente, associação de colunas, com quantidade variadas, exemplos, 3 itens e 3 colunas, 4 itens e 4 colunas, 5 itens e 5 colunas.
 4. Ocasionalmente, completar lacunas (preencher espaços em branco com sequência de palavras) com alternativas.
 5. Ocasionalmente, verdadeiro ou falso (V ou F) com julgamento afirmações(entre 3 e 5 itens).
-6.Ocasionalmente, questões do tipo asserções I e II, perguntar quem é verdade e se a II justifica a I.
-7. Ocasionalmente, questões do tipo qual a alternativa <b>INCORRETA</b>.
+6. Ocasionalmente, questões do tipo qual a alternativa <b>INCORRETA</b>.
 
 Não utilize:
 Questões discursivas.
@@ -444,7 +443,7 @@ Quantidade: ${quantidade}
 Nível: ${nivel}
 
 FORMATO DE SAÍDA
-IMPORTANTE: Retorne APENAS JSON válido. Gere questões somente dos assuntos indicados.
+IMPORTANTE: Gere questões somente dos assuntos indicados.
 
 ESTRUTURA JSON EXATA:
 
@@ -481,7 +480,12 @@ ESTRUTURA JSON EXATA:
       }
     ]
   }
-]`;
+]
+
+Nunca coloque vírgula após o último atributo de objetos JSON nem após o último item de arrays, como nas chaves msgAltE e Nível, isso quebra o json.
+Cuidado com os nomes das chaves. Cuidado para não repetir chaves dentro de um mesmo objeto.
+Antes de retornar o JSON, valide-o com um validador de JSON, corrija se necessário e retorne APENAS JSON válido seguindo rigorosamente o padrão RFC 8259.
+`;
   }
 
   // Função para carregar e exibir simulados salvos
