@@ -277,13 +277,13 @@ Modelo característico: 5 alternativas (A, B, C, D, E), sem penalização por er
 FORMATO REAL DAS QUESTÕES
 Utilize:
 1. Questões de múltipla escolha (A–E) com uma única correta.
-2. Questões com itens para julgar, com quantidade variável (de 4 a 6 itens, escolha aleatóriamente, conforme
+2. Questões com itens para julgar, com quantidade variável (mínimo 4 a 6 itens, escolha aleatóriamente, conforme
 o conteúdo).
 3. Ocasionalmente, associação de colunas, com quantidade variadas, exemplos, 3 itens e 3 colunas, 4 itens e 4 colunas, 5 itens e 5 colunas.
 4. Ocasionalmente, completar lacunas (preencher espaços em branco com sequência de palavras) com alternativas.
 5. Ocasionalmente, verdadeiro ou falso (V ou F) com julgamento afirmações(entre 3 e 5 itens).
-6.() Ocasionalmente, questões do tipo asserções I e II, perguntar quem é verdade e se a II justifica a I.
-7. Ocasionalmente, questões do tipo qual a alternativa incorreta.
+6.Ocasionalmente, questões do tipo asserções I e II, perguntar quem é verdade e se a II justifica a I.
+7. Ocasionalmente, questões do tipo qual a alternativa <b>INCORRETA</b>.
 
 Não utilize:
 Questões discursivas.

@@ -495,6 +495,13 @@ class SimuladorApp {
 
     this.renderQuestoes(simulado);
 
+    // Save statistics to database (caderno de erros)
+    if (simulado && simulado.fileName) {
+      db.saveQuestaoStats(simulado.fileName, questaoIndex, acertou).catch(err => {
+        console.error('Erro ao salvar estatística da questão:', err);
+      });
+    }
+
     // Scroll para a questão atual
     const questoesContainer = document.querySelector('#questoesContainer');
     if (questoesContainer) {
