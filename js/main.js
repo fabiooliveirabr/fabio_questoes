@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="form-row">
               <div class="form-group">
                 <label>🎯 Banca</label>
-                <input type="text" id="banca" value="FURB" disabled>
+                <input type="text" id="banca" value="FURB">
               </div>
               
               <div class="form-group">
@@ -162,24 +162,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="form-row">
               <div class="form-group">
                 <label>👔 Cargo</label>
-                <input type="text" id="cargo" value="Analista de Informática" disabled>
+                <input type="text" id="cargo" value="Analista de Informática">
               </div>
               
               <div class="form-group">
                 <label>🏛️ Concurso</label>
-                <input type="text" id="concurso" value="SED/SC - Secretaria de Estado da Educação de Santa Catarina" disabled>
+                <input type="text" id="concurso" value="SED/SC - Secretaria de Estado da Educação de Santa Catarina">
               </div>
             </div>
             
             <div class="form-row">
               <div class="form-group">
                 <label>🎓 Nível</label>
-                <input type="text" id="nivel" value="Ensino superior" disabled>
+                <input type="text" id="nivel" value="Ensino superior">
               </div>
               
               <div class="form-group">
                 <label>📝 Área</label>
-                <input type="text" id="area" value="Educação" disabled>
+                <input type="text" id="area" value="Educação">
               </div>
             </div>
             
@@ -276,7 +276,7 @@ Modelo característico: 5 alternativas (A, B, C, D, E), sem penalização por er
 
 FORMATO REAL DAS QUESTÕES
 Utilize:
-1. Questões de múltipla escolha (A–E) com uma única correta.
+1. Questões de múltipla escolha (A–E) com uma única correta. IMPORTANTISSIMO variar a posição da alternativa correta em todas as letra.
 2. Questões com itens para julgar, com quantidade variável (mínimo 4 a 6 itens, escolha aleatóriamente, conforme
 o conteúdo).
 3. Ocasionalmente, associação de colunas, com quantidade variadas, exemplos, 3 itens e 3 colunas, 4 itens e 4 colunas, 5 itens e 5 colunas.
@@ -416,6 +416,7 @@ As alternativas DEVEM conter APENAS o nome do conceito, sem definições, exempl
 
 10. Alternativas
 As alternativas DEVEM conter exatamente 5 opções (A, B, C, D, E), com apenas uma alternativa correta.
+Mais uma vez reforçando que é importantissimo variar a posição da alternativa correta em todas as letra.
 
 O resultado final deve constituir um instrumento de avaliação educacional realista, controlando explicitamente:
 cueing effect, visual salience bias, attention bias, length bias, structural bias, grammatical cue, pattern bias, test-wiseness, content validity, cognitive demand, redundancy, local item independence, formulaic pattern control, high-quality distractor discrimination, near-miss distractors e human-like item noise, sendo indistinguível de uma prova real da banca ${banca}.
@@ -482,8 +483,9 @@ ESTRUTURA JSON EXATA:
   }
 ]
 
-Nunca coloque vírgula após o último atributo de objetos JSON nem após o último item de arrays, como nas chaves msgAltE e Nível, isso quebra o json.
+Nunca, repito NUNCA coloque vírgula após o último atributo de objetos JSON nem após o último item de arrays, como nas chaves msgAltE e Nível, isso quebra o json.
 Cuidado com os nomes das chaves. Cuidado para não repetir chaves dentro de um mesmo objeto.
+Reorganize a ordem das alternativas corretas para variar de forma equilibradas entre A, B, C, D e E, cuidado para não ficar viciado apenas A, B e C.
 Antes de retornar o JSON, valide-o com um validador de JSON, corrija se necessário e retorne APENAS JSON válido seguindo rigorosamente o padrão RFC 8259.
 `;
   }
