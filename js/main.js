@@ -486,7 +486,7 @@ ESTRUTURA JSON EXATA:
 Nunca, repito NUNCA coloque vírgula após o último atributo de objetos JSON nem após o último item de arrays, como nas chaves msgAltE e Nível, isso quebra o json.
 Cuidado com os nomes das chaves. Cuidado para não repetir chaves dentro de um mesmo objeto.
 Reorganize a ordem das alternativas corretas para variar de forma equilibradas entre A, B, C, D e E, cuidado para não ficar viciado apenas A, B e C.
-Antes de retornar o JSON, valide-o com um validador de JSON, corrija se necessário e retorne APENAS JSON válido seguindo rigorosamente o padrão RFC 8259.
+Antes de retornar o JSON, valide-o com um validador de JSON, corrija se necessário e retorne APENAS JSON(downloadable) válido seguindo rigorosamente o padrão RFC 8259.
 `;
   }
 
